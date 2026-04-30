@@ -1,0 +1,30 @@
+main { min-height: 80vh; }
+span { font-weight: bold; }
+
+
+/*--- COLUMNAS ---*/
+/* GRID DE CARDS */
+#tablero,
+.encabezado {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* CARD */
+.columna {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.columna h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
