@@ -36,6 +36,13 @@
               <label for="fecha" name="fecha">Fecha límite</label>
               <input for="fecha" type="date" id="fechaFin"><br/>
 
+              <label for="estado" name="estado">Estado</label>
+              <select id="estado">
+                <option value="toDo">Por hacer</option>
+                <option value="en-progreso">En progreso</option>
+                <option value="finalizado">Finalizado</option>
+              </select><br/>
+
               <button type="submit" id="agregar">Agregar</button>
             </form>
 
@@ -47,7 +54,9 @@
 
             <label for="estado" name="estado">Estado de la tarea</label>
             <select>
-              <option value="">Estado</option>
+                <option value="toDo">Por hacer</option>
+                <option value="en-progreso">En progreso</option>
+                <option value="finalizado">Finalizado</option>
             </select><br/>
 
             <label for="buscar" name="buscar">Busca por descripción</label>
@@ -59,7 +68,7 @@
         <!-- Zona para las estadisticas -->
          <section id="estadisticas">
           <aside id="estadisticas-aside">
-            <h3>Estadísticas</h3>
+            <h2>Estadísticas</h2>
             <p><span>Tareas:</span>  30</p>
             <p><span>Por hacer:</span>  10</p>
             <p><span>En proceso:</span>  10</p>
@@ -71,16 +80,19 @@
 
         <!-- Zona del tablero -->
         <section id="tablero">
-            <div class="columna" id="toDo">
+            <div class="columna">
                 <h3>Para hacer</h3>
+                <div id="toDo"></div>
             </div>
             
-            <div class="columna" id="en-progreso">
+            <div class="columna">
                 <h3>En progreso</h3>
+                <div id="en-progreso"></div>
             </div>
             
-            <div class="columna" id="finalizado">
+            <div class="columna">
                 <h3>Finalizado</h3>
+                <div id="finalizado"></div>
             </div>
         </section>
     </main>
@@ -89,6 +101,7 @@
         <p>&copy; 2026 - Cesar</p>
     </footer>
 
-    <script src="js/script.js"></script>
+
+    <script type="module" src="js/script.js"></script>
 </body>
 </html>

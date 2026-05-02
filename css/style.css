@@ -1,5 +1,20 @@
 main { min-height: 80vh; }
 span { font-weight: bold; }
+footer, header { text-align: center;}
+
+/*--- FORMULARIOS Y ESTADISTICAS ---*/
+#formulario,
+#filtros,
+#estadisticas { 
+    display: grid;
+    justify-content: center;
+}
+
+#formulario h2,
+#filtros h2,
+#estadisticas h2 {
+    text-align: center;
+}
 
 
 /*--- COLUMNAS ---*/
@@ -13,7 +28,7 @@ span { font-weight: bold; }
     margin: 0 auto;
 }
 
-/* CARD */
+/* CARDS */
 .columna {
     background: #fff;
     border-radius: 10px;
@@ -21,6 +36,8 @@ span { font-weight: bold; }
     padding: 1rem;
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    line-height: 0.7rem;
+
 }
 
 .columna h3 {
@@ -28,3 +45,20 @@ span { font-weight: bold; }
     margin-bottom: 1rem;
 }
 
+.toDo {
+    background-color: rgb(219, 192, 179);
+}
+
+.en-progreso {
+    background-color: rgb(219, 218, 179);
+}
+
+.finalizado {
+    background-color: rgb(179, 219, 179);
+}
+
+.toDo, .en-progreso, .finalizado {
+    padding: 0.2em 0 1em 0;
+    border-radius: 6px;
+    margin-bottom: 1em;
+}
