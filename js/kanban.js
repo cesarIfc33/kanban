@@ -1,5 +1,6 @@
 import { guardarTasques } from "./storage.js";
 import { renderTauler } from "./ui.js";
+import { actualizarUI } from "./script.js";
 
 export let tasques = [];
 export let editandoId = null;
@@ -8,7 +9,7 @@ export function setTasques(data) {
     tasques = data;
 }
 
-// Isues3 CRUD de la aplicacion
+//--------------- Issues 3 CRUD de la aplicacion ---------
 
 // Crear Tarea
 export function crearTasques() {
@@ -25,7 +26,7 @@ export function crearTasques() {
         return tasques;
     }
 
-    // encuentra la cantidad de objetos que hay  para poner el contador id en situación
+    // encuentra la cantidad de objetos que hay para poner el contador id en situación
     let contadorId = tasques.length > 0 
         ? Math.max(...tasques.map(t => t.id)) + 1 
         : 1;
@@ -65,7 +66,6 @@ export function editarTasques(id) {
 
     let index = tasques.findIndex(t => t.id === id);
 
-
     if(index !== -1){
         tasques[index] = {
             ...tasques[index],
@@ -93,9 +93,8 @@ export function eliminarTasques(id) {
         //Procede a eliminar tarea
         tasques = tasques.filter(t => t.id !== id);
         guardarTasques(tasques);
-
         renderTauler(tasques)
-
+        actualizarUI();
 }
 
 // Funcion para cambiar el estado la tarea
@@ -105,11 +104,11 @@ export function cambiarEstado(id, nuevoEstado) {
         tasques[index].estado = nuevoEstado;
         guardarTasques(tasques);
         renderTauler(tasques)
+        actualizarUI();
     }
 }
 
 export function prepararEdicion(id) {
-
     // Buscamos los datos de esa tarea
     const t = tasques.find(tarea => tarea.id === id);
     
@@ -130,4 +129,52 @@ export function prepararEdicion(id) {
         const tituloForm = document.getElementById("formulario");
         tituloForm.getElementsByTagName("h2")[0].innerText = "Editar tarea ";
     }
+}
+
+
+//--------------- Issues 4 Filtro, busca y estadísticas ---------
+// Objeto de los filtros aplicados
+export let filtros = {
+    estado: "all",
+    texto: ""
+};
+
+// funcion que actualiza el objeto
+export function setFiltros(nuevosFiltros) {
+    filtros = { ...filtros, ...nuevosFiltros };
+}
+
+// funcion que filtra y devuelve un array con la tareas encontradas
+export function getTasquesFiltrades(tasques, filtros) {
+    return tasques.filter(t => {
+        const matchEstado = filtros.estado === "all" || t.estado === filtros.estado;
+
+        const texto = filtros.texto.toLowerCase();
+
+        const matchTexto =
+            t.titulo.toLowerCase().includes(texto) ||
+            t.descripcion.toLowerCase().includes(texto);
+
+        return matchEstado && matchTexto;
+    });
+}
+
+// Funcion para obtener estadisticas
+export function getEstadisticas(tasques) {
+
+    const total = tasques.length;
+
+    const porHacer = tasques.filter(t => t.estado === "toDo").length;
+    const enProgreso = tasques.filter(t => t.estado === "en-progreso").length;
+    const finalizado = tasques.filter(t => t.estado === "finalizado").length;
+
+    const porcentaje = total === 0 ? 0 : Math.round((finalizado / total) * 100);
+
+    return {
+        total,
+        porHacer,
+        enProgreso,
+        finalizado,
+        porcentaje
+    };
 }

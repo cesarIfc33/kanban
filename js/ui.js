@@ -1,4 +1,4 @@
-import { prepararEdicion, eliminarTasques, cambiarEstado } from "./kanban.js";
+import { prepararEdicion, eliminarTasques, cambiarEstado, getEstadisticas } from "./kanban.js";
 
 // Obtener datos y mostrar en el HTML
 export function renderTauler(tasques) {
@@ -92,4 +92,43 @@ export function renderTauler(tasques) {
         document.querySelectorAll('.estat').forEach(select => {
             select.onchange = () => cambiarEstado(parseInt(select.dataset.id), select.value);
         });
+    }
+
+
+    //función para visualizar las Estadisticas
+    export function renderEstadisticas(stats) {
+
+        const contenedor = document.getElementById('estadisticas-aside');
+        const p1 = contenedor.querySelector("p:nth-child(2)");
+        const p2 = contenedor.querySelector("p:nth-child(3)");
+        const p3 = contenedor.querySelector("p:nth-child(4)");
+        const p4 = contenedor.querySelector("p:nth-child(5)");
+        const p5 = contenedor.querySelector("p:nth-child(6)");
+
+        p1.textContent = "";
+        p2.textContent = "";
+        p3.textContent = "";
+        p4.textContent = "";
+        p5.textContent = "";
+
+        // Tareas
+        p1.appendChild(document.createElement("span")).appendChild(document.createTextNode("Tareas: "));
+        p1.appendChild(document.createTextNode(stats.total));
+
+        // Por hacer
+        p2.appendChild(document.createElement("span")).appendChild(document.createTextNode("Por hacer: "));
+        p2.appendChild(document.createTextNode(stats.porHacer));
+
+        // En proceso
+        p3.appendChild(document.createElement("span")).appendChild(document.createTextNode("En proceso: "));
+        p3.appendChild(document.createTextNode(stats.enProgreso));
+
+        // Completadas
+        p4.appendChild(document.createElement("span")).appendChild(document.createTextNode("Completadas: "));
+        p4.appendChild(document.createTextNode(stats.finalizado));
+
+        // Porcentaje
+        p5.appendChild(document.createElement("span")).appendChild(document.createTextNode("% Completadas: "));
+        p5.appendChild(document.createTextNode(stats.porcentaje + "%"));
+
     }

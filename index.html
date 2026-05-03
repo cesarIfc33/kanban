@@ -53,16 +53,17 @@
             <h2>Filtra</h2>
 
             <label for="estado" name="estado">Estado de la tarea</label>
-            <select>
-                <option value="toDo">Por hacer</option>
-                <option value="en-progreso">En progreso</option>
-                <option value="finalizado">Finalizado</option>
+            <select id="filtro-estado">
+              <option value="all">Todos</option>
+              <option value="toDo">Por hacer</option>
+              <option value="en-progreso">En progreso</option>
+              <option value="finalizado">Finalizado</option>
             </select><br/>
 
             <label for="buscar" name="buscar">Busca por descripción</label>
-            <input for="buscar" type="text"><br/>
+            <input for="buscar" id="filtro-texto" type="text"><br/>
 
-            <button type="button">Buscar</button>
+            <button type="button" id="btoFiltrar">Buscar</button>
         </section>
 
         <!-- Zona para las estadisticas -->

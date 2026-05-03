@@ -1,16 +1,17 @@
 import { carregarTasques, guardarTasques } from "./storage.js";
-import { renderTauler } from "./ui.js";
-import { crearTasques, editarTasques, editandoId, setTasques } from "./kanban.js";
+import { renderTauler, renderEstadisticas } from "./ui.js";
+import { crearTasques, editarTasques, editandoId, setTasques,
+         getTasquesFiltrades, getEstadisticas, setFiltros, filtros, tasques
+        } from "./kanban.js";
 
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    let tasques = carregarTasques();
-    setTasques(tasques);
+    setTasques(carregarTasques());
 
     // muestra datos al inicio si no exiten ninguno datos
     if (tasques.length === 0) {
-        tasques = [{
+        setTasques([{
             id: 0,
             titulo: "Ejemplo de tarea",
             descripcion: "Crear el primer programa",
@@ -18,14 +19,14 @@ document.addEventListener("DOMContentLoaded", function () {
             fechaFin: "20/12/2025",
             estado: 'toDo',
             creadoEl: new Date().toLocaleDateString()
-        }];
+        }]);
         guardarTasques(tasques);
         setTasques(tasques);
     }
     
     console.log("Tasques carregades:", tasques);
 
-    renderTauler(tasques);
+    actualizarUI();
 
     // Ejecutar al Enviar el formulario
     document.getElementById("agregar").onclick = function(e){
@@ -34,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (editandoId !== null) {
             // Si hay un ID guardado, ejecutamos tu función de editar
             editarTasques(editandoId);
+            actualizarUI();
             editandoId = null; 
             this.innerText = "Guardar";
             // cambiamos el titulo del formulario
@@ -41,6 +43,28 @@ document.addEventListener("DOMContentLoaded", function () {
             tituloForm.getElementsByTagName("h2")[0].innerText = "Nueva tarea";
         } else {
             crearTasques();
+            actualizarUI();
         }
     };
+
+    document.getElementById("btoFiltrar").onclick = () => {
+
+        const estado = document.getElementById("filtro-estado").value;
+        const texto = document.getElementById("filtro-texto").value;
+
+        setFiltros({ estado, texto });
+
+        actualizarUI();
+    };
 });
+
+// recalcula y muestra las estadisticas
+export function actualizarUI() {
+    const filtradas = getTasquesFiltrades(tasques, filtros);
+    renderTauler(filtradas);
+
+    const stats = getEstadisticas(tasques);
+    renderEstadisticas(stats);
+}
+
+
