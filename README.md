@@ -6,9 +6,9 @@
 **Descripción:** Consta de una página web funcional, que sirve de ayuda para gestionar las tareas personales, de una empresa o proyectos.
 
 **Permite:**
-    * -Crear tareas con fecha de finalización
-    * -Organizarlas por estados
-    * -Obtener un esquema de situación
+* Crear tareas con fecha de finalización
+* Organizarlas por estados
+* Obtener un esquema de situación
 
 ## Estructura
     app-kanban
