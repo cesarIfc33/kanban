@@ -1,24 +1,89 @@
-main { min-height: 80vh; }
-span { font-weight: bold; }
+/*--- ESTILO GENERAL ---*/
+
+main { min-height: 80vh;}
+span, label { font-weight: bold; }
 footer, header { text-align: center;}
+label, 
+#formulario-form > *,
+#filtra-form > * { 
+    font-size: 0.9em;
+}
+
 
 /*--- FORMULARIOS Y ESTADISTICAS ---*/
 #formulario,
-#filtros,
-#estadisticas { 
+#filtros { 
     display: grid;
-    justify-content: center;
+    justify-content: stretch;
+    width: 75%;
+    padding-left: 4.5em;
+}
+
+#estadisticas { 
+    display: grid; 
+    justify-content: center; 
+    background-color: #57b060;
+    margin: 1em;
+    border-radius: 5px;
+}
+
+#estadisticas p {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    align-items: center;
+}
+
+#estadisticas span:not(.resultado){
+    color: #fff;
+}
+
+.resultado {
+    background-color: #fff;
+    padding: 0.5em;      
+    text-align: center
 }
 
 #formulario h2,
-#filtros h2,
-#estadisticas h2 {
+#filtros h2 {
     text-align: center;
 }
 
+/* hacer dos columnas con los formularios*/
+#formulario-form {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 10px 15px;
+    align-items: center;
+}
 
-/*--- COLUMNAS ---*/
-/* GRID DE CARDS */
+#filtra-form {
+    display: grid;
+    align-items: start;
+}
+
+
+/* ajustar los botones en el centro */
+#agregar,
+#btoFiltrar {
+    grid-column: 1 / -1;
+    justify-self: center;
+    padding: 0.5rem 1rem;
+    background-color: #57b060;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+#agregar:hover,
+#btoFiltrar:hover {
+    background-color: #397a3fcf;
+}
+
+
+/* estilo del encabezado y ajuste del tablero */
 #tablero,
 .encabezado {
     display: grid;
@@ -28,16 +93,24 @@ footer, header { text-align: center;}
     margin: 0 auto;
 }
 
+.encabezado {
+    background: rgb(224, 224, 224);;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+}
+
+/*--- COLUMNAS ---*/
 /* CARDS */
 .columna {
-    background: #fff;
+    background: rgb(224, 224, 224);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     padding: 1rem;
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     line-height: 0.7rem;
-
 }
 
 .columna h3 {
@@ -45,16 +118,32 @@ footer, header { text-align: center;}
     margin-bottom: 1rem;
 }
 
+/* Altura minima para poder utilizar correctamente el Drop */
+#toDo,
+#en-progreso,
+#finalizado {
+    min-height: 100vh;
+}
+
 .toDo {
-    background-color: rgb(219, 192, 179);
+    background-image: url("../img/img-background-red-v2.png");
+    background-size: 100% 120%; ;
+    background-repeat: no-repeat;
+    background-position: center
 }
 
 .en-progreso {
-    background-color: rgb(219, 218, 179);
+    background-image: url("../img/img-background-yellow-v2.png");
+    background-size: 100% 120%; ;
+    background-repeat: no-repeat;
+    background-position: center
 }
 
 .finalizado {
-    background-color: rgb(179, 219, 179);
+    background-image: url("../img/img-background-green-v2.png");
+    background-size: 100% 120%; ;
+    background-repeat: no-repeat;
+    background-position: center
 }
 
 .toDo, .en-progreso, .finalizado {
@@ -62,3 +151,57 @@ footer, header { text-align: center;}
     border-radius: 6px;
     margin-bottom: 1em;
 }
+
+/* separar los botones */
+
+.btn-edit{
+    margin-right: 1em;
+}
+
+.btn-edit, .btn-delete {
+    padding: 0.5rem 1rem;
+    background-color: #a3a3a3;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete:hover,
+.btn-edit:hover{
+    background-color: #535353;
+}
+
+/*--- DROP GRAB --- */
+.tarea {
+    cursor: grab;
+}
+
+.tarea:active {
+    cursor: grabbing;
+    opacity: 0.7;
+}
+
+/*--- RESPONSIVE ---*/
+
+
+@media (max-width: 900px) {
+    #tablero,
+    .encabezado {
+        grid-template-columns: 1fr;
+    }
+    #formulario-form {
+        grid-template-columns: 1fr;
+    }
+
+    #agregar, #btoFiltrar{
+        width: 100%;
+    }
+    
+    #filtra-form > * {
+        margin: 0.4em 0 0.4em 0;
+    }
+}
+

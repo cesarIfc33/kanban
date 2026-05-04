@@ -3,6 +3,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="img/favicon.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabla Kanban</title>
     <link rel="stylesheet" href="css/style.css">
@@ -21,27 +22,27 @@
             
             <form id="formulario-form">
               <label for="titulo" name="titulo">Título</label>
-              <input for="titulo" type="text" id="titulo"><br/>
+              <input for="titulo" type="text" id="titulo">
 
               <label for="descripcion" name="descripcion">Descripción</label>
-              <textarea for="descripcion" id="descripcion"></textarea><br/>
+              <textarea for="descripcion" id="descripcion"></textarea>
 
               <label for="prioridad" name="prioridad">Prioridad</label>
               <select id="prioridad">
                 <option value="baja">Baja</option>
                 <option value="media">Media</option>
                 <option value="alta">Alta</option>
-              </select><br/>
+              </select>
 
               <label for="fecha" name="fecha">Fecha límite</label>
-              <input for="fecha" type="date" id="fechaFin"><br/>
+              <input for="fecha" type="date" id="fechaFin">
 
               <label for="estado" name="estado">Estado</label>
               <select id="estado">
                 <option value="toDo">Por hacer</option>
                 <option value="en-progreso">En progreso</option>
                 <option value="finalizado">Finalizado</option>
-              </select><br/>
+              </select>
 
               <button type="submit" id="agregar">Agregar</button>
             </form>
@@ -51,19 +52,20 @@
         <!-- Zona para los filtros -->
         <section id="filtros">
             <h2>Filtra</h2>
+            <div id="filtra-form">
+              <label for="estado" name="estado">Estado de la tarea</label>
+              <select id="filtro-estado">
+                <option value="all">Todos</option>
+                <option value="toDo">Por hacer</option>
+                <option value="en-progreso">En progreso</option>
+                <option value="finalizado">Finalizado</option>
+              </select>
 
-            <label for="estado" name="estado">Estado de la tarea</label>
-            <select id="filtro-estado">
-              <option value="all">Todos</option>
-              <option value="toDo">Por hacer</option>
-              <option value="en-progreso">En progreso</option>
-              <option value="finalizado">Finalizado</option>
-            </select><br/>
+              <label for="buscar" name="buscar">Busca por descripción</label>
+              <input for="buscar" id="filtro-texto" type="text">
 
-            <label for="buscar" name="buscar">Busca por descripción</label>
-            <input for="buscar" id="filtro-texto" type="text"><br/>
-
-            <button type="button" id="btoFiltrar">Buscar</button>
+              <button type="button" id="btoFiltrar">Buscar</button>
+            </div>
         </section>
 
         <!-- Zona para las estadisticas -->

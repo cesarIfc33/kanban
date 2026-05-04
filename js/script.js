@@ -1,5 +1,5 @@
 import { carregarTasques, guardarTasques } from "./storage.js";
-import { renderTauler, renderEstadisticas } from "./ui.js";
+import { renderTauler, renderEstadisticas, activarDragAndDrop} from "./ui.js";
 import { crearTasques, editarTasques, editandoId, setTasques,
          getTasquesFiltrades, getEstadisticas, setFiltros, filtros, tasques
         } from "./kanban.js";
@@ -67,4 +67,8 @@ export function actualizarUI() {
     renderEstadisticas(stats);
 }
 
+
+document.addEventListener("DOMContentLoaded", () => {
+    activarDragAndDrop();
+});
 

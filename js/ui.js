@@ -14,8 +14,15 @@ export function renderTauler(tasques) {
 
 
         tasques.forEach(t => {
-            // agregar al HTML el div con una clase
+            // agregar al HTML el div con la classe tarea y el atributo draggable (para arrastrar tareas)
             const div = document.createElement('div');
+            div.setAttribute("draggable", "true");
+            div.classList.add("tarea");
+            div.dataset.id = t.id;
+            //Coger el id y sus datos para luego para arrastrar las etiquetas
+            div.addEventListener("dragstart", (e) => {
+                e.dataTransfer.setData("text/plain", t.id);
+            });
             // agregar al HTML el titulo
             const tituloHtml = document.createElement('h4');
             tituloHtml.appendChild(document.createTextNode(t.titulo));
@@ -80,8 +87,15 @@ export function renderTauler(tasques) {
         });
 
         // Asignar eventos a los nuevos botones creados
+        // al boton editar le he asignado que al pulsar se visualice el formulario
         document.querySelectorAll('.btn-edit').forEach(btn => {
-            btn.onclick = () => prepararEdicion(parseInt(btn.dataset.id));
+            btn.onclick = () => {
+                prepararEdicion(parseInt(btn.dataset.id));
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            };
         });
 
         document.querySelectorAll('.btn-delete').forEach(btn => {
@@ -92,6 +106,7 @@ export function renderTauler(tasques) {
         document.querySelectorAll('.estat').forEach(select => {
             select.onchange = () => cambiarEstado(parseInt(select.dataset.id), select.value);
         });
+
     }
 
 
@@ -113,22 +128,64 @@ export function renderTauler(tasques) {
 
         // Tareas
         p1.appendChild(document.createElement("span")).appendChild(document.createTextNode("Tareas: "));
-        p1.appendChild(document.createTextNode(stats.total));
+        let spanResultado = document.createElement("span");
+        spanResultado.classList.add("resultado");
+        spanResultado.appendChild(document.createTextNode(stats.total));
+        p1.appendChild(spanResultado);
+        
 
         // Por hacer
         p2.appendChild(document.createElement("span")).appendChild(document.createTextNode("Por hacer: "));
-        p2.appendChild(document.createTextNode(stats.porHacer));
+        spanResultado = document.createElement("span");
+        spanResultado.classList.add("resultado");
+        spanResultado.appendChild(document.createTextNode(stats.porHacer));
+        p2.appendChild(spanResultado);
 
         // En proceso
         p3.appendChild(document.createElement("span")).appendChild(document.createTextNode("En proceso: "));
-        p3.appendChild(document.createTextNode(stats.enProgreso));
+        spanResultado = document.createElement("span");
+        spanResultado.classList.add("resultado");
+        spanResultado.appendChild(document.createTextNode(stats.enProgreso));
+        p3.appendChild(spanResultado);
 
         // Completadas
         p4.appendChild(document.createElement("span")).appendChild(document.createTextNode("Completadas: "));
-        p4.appendChild(document.createTextNode(stats.finalizado));
+        spanResultado = document.createElement("span");
+        spanResultado.classList.add("resultado");
+        spanResultado.appendChild(document.createTextNode(stats.finalizado));
+        p4.appendChild(spanResultado);
 
         // Porcentaje
         p5.appendChild(document.createElement("span")).appendChild(document.createTextNode("% Completadas: "));
-        p5.appendChild(document.createTextNode(stats.porcentaje + "%"));
+        spanResultado = document.createElement("span");
+        spanResultado.classList.add("resultado");
+        spanResultado.appendChild(document.createTextNode(stats.porcentaje + "%"));
+        p5.appendChild(spanResultado);
+    }
 
+    // ----FUNCION PARA IDENTIFICAR LAS ZONAS DE ARRASTRE DE LAS ETIQUETAS -----
+    export function activarDragAndDrop() {
+
+        const columnas = [
+            document.getElementById("toDo"),
+            document.getElementById("en-progreso"),
+            document.getElementById("finalizado")
+        ];
+
+        columnas.forEach(col => {
+
+            col.addEventListener("dragover", (e) => {
+                e.preventDefault();
+            });
+
+            col.addEventListener("drop", (e) => {
+                e.preventDefault();
+
+                const id = parseInt(e.dataTransfer.getData("text/plain"));
+
+                const nuevoEstado = col.id;
+
+                cambiarEstado(id, nuevoEstado);
+            });
+        });
     }
