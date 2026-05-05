@@ -65,10 +65,7 @@ export function actualizarUI() {
 
     const stats = getEstadisticas(tasques);
     renderEstadisticas(stats);
+
+     activarDragAndDrop();
 }
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    activarDragAndDrop();
-});
 
